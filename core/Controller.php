@@ -3,6 +3,8 @@
 
         public $variabls = array();
         public $request;
+        public $layout = 'default';
+        private $render = false;
         public  function  __construct($request)
         {
             $this->request = $request;
@@ -18,9 +20,18 @@
             }
         }
         public function render($view){
+            if($this->render){ return false; }
             extract($this->variabls);
-            $view = ROOT.DS.'view'.DS.$this->request->controller.DS.$view.'.php';
+            if(strpos($view,'/')===0){
+                $view = ROOT.DS.'view'.$view.'.php';
+            }else{
+                $view = ROOT.DS.'view'.DS.$this->request->controller.DS.$view.'.php';
+            }
+            ob_start();
             require($view);
+            $content = ob_get_clean();
+            require ROOT.DS.'view'.DS.'layouts'.DS.$this->layout.'.php';
+            $this->render = true;
         }
     }
 
