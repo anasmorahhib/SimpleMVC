@@ -17,6 +17,10 @@
             $controller->render($this->requeste->action);
         }
 
+        /*
+         * Page Not Found
+         */
+
         public function error($message){
             header("HTTP/1.0 404 Not Found");
             $controller = new Controller($this->requeste);
@@ -25,6 +29,10 @@
             die();
         }
 
+        /*
+         * Load Controller and
+         * Return Object From class "xController"
+         */
         public function loadController(){
            $name = ucfirst($this->requeste->controller).'Controller';
             $file = ROOT.DS.'controller'.DS.$name.'.php';

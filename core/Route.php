@@ -1,9 +1,11 @@
-
 <?php
-
 
         class Route{
 
+            /*
+             * URL to Array
+             * @controller, @action, @params
+             */
             static function decoup($url,$request){
                 $url = trim($url, '/');
                 $params = explode('/',$url);
@@ -13,7 +15,5 @@
                 return true;
             }
         }
-
-
 
 ?>
